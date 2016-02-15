@@ -12,7 +12,8 @@ var config = require('./config'),
     passport = require('passport'),
     mongoose = require('mongoose'),
     helmet = require('helmet'),
-    csrf = require('csurf');
+    csrf = require('csurf'),
+    gravatar = require('gravatar');
 
 //create express app
 var app = express();
@@ -64,6 +65,7 @@ app.use(function(req, res, next) {
   res.locals.user = {};
   res.locals.user.defaultReturnUrl = req.user && req.user.defaultReturnUrl();
   res.locals.user.username = req.user && req.user.username;
+  res.locals.user.gravatarUrl = gravatar.url(req.user ? req.user.email : '',{ s: 24, d: 'mm' });
   next();
 });
 
