@@ -41,7 +41,14 @@ module.exports = function(grunt) {
           {
             expand: true, cwd: 'node_modules/underscore/',
             src: ['underscore.js'], dest: 'public/vendor/underscore/'
-          }
+          },
+          {
+            expand: true, cwd: 'node_modules/codemirror/',
+            src: ['lib/**' ,'mode/css/**'], dest: 'public/vendor/codemirror'
+          },
+	  {
+	    expand: true, cwd: 'node_modules/canto34/src/',
+	    src: [ 'canto34.js' ], dest: 'public/vendor/canto34/'
         ]
       }
     },

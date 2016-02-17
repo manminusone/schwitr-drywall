@@ -33,7 +33,9 @@
     "passport-twitter": "^1.x.x",
     "serve-static": "^1.9.x",
     "underscore": "^1.x.x",
-    "gravatar": "*"
+    "gravatar": "*",
+    "codemirror": "*",
+    "canto34": "*"
   },
   "devDependencies": {
     "bootstrap": "^3.x.x",
