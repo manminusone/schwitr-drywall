@@ -1,0 +1,79 @@
+doctype html
+html
+  head
+    block head
+      title #{title}
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='/layouts/core.min.css?#{cacheBreaker}')
+    
+
+    // CodeMirror content
+    script(src='/vendor/codemirror/lib/codemirror.js')
+    link(rel='stylesheet', href='/vendor/codemirror/lib/codemirror.css')
+    // language libs
+    script(src='/vendor/codemirror/mode/css/css.js')
+    script(src='/views/edit/schwitr.min.js')
+
+    script(src='/vendor/jquery/jquery.js')
+
+    // canto34 is the parser lib
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js')
+    
+    script(src="/views/edit/edit.min.js")
+    script(src="/views/edit/interpreter.min.js")
+    script(src="/views/edit/parse.min.js")
+    link(rel='stylesheet', href='/views/edit/edit.css')
+
+    block neck
+  body
+    div.navbar.navbar-default.navbar-fixed-top
+      div.container
+        div.navbar-header
+          a.navbar-brand(href='/')
+            img.navbar-logo(src='/media/s-logo.svg', alt='Logo', with='64', height='64')
+            span.navbar-brand-label #{projectName}
+          button.navbar-toggle.collapsed(data-toggle='collapse', data-target='.my-navbar-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        div.navbar-collapse.my-navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li: a(href='/') Home
+            li: a(href='/edit/') New Grammar
+            li: a(href='/about/') About
+            if user 
+              li: a(href='/account/') My Account
+            else
+              li: a(href='/signup/') Sign Up
+            li: a(href='/contact/') Contact
+          ul.nav.navbar-nav.navbar-right
+            if user && user.username
+              li: a(href='#{user.defaultReturnUrl}')
+                img(src=user.gravatarUrl)
+                |  #{user.username}
+            else
+              li: a(href='/login/')
+                i.fa.fa-user
+                |  Sign In
+
+    div.page
+      div.container
+        block body
+
+    div.footer
+      div.container
+        span.copyright.pull-right
+          |&#169; #{copyrightYear} #{copyrightName}
+        ul.links
+          li: a(href='/') Home
+          li: a(href='/contact/') Contact
+        div.clearfix
+
+    div.ajax-spinner
+      img(src='/media/ajax-pulse.gif', alt='Loading')
+
+    //if lte IE 9
+      script(src='/layouts/ie-sucks.min.js?#{cacheBreaker}')
+    script(src='/layouts/core.min.js?#{cacheBreaker}')
+
+    block feet

@@ -49,6 +49,7 @@ module.exports = function(grunt) {
 	  {
 	    expand: true, cwd: 'node_modules/canto34/src/',
 	    src: [ 'canto34.js' ], dest: 'public/vendor/canto34/'
+	  }
         ]
       }
     },

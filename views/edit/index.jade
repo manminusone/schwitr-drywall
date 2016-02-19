@@ -1,41 +1,17 @@
-extends ../../layouts/default
+extends ../../layouts/edit
 
 block head
   title Edit a Grammar
 
 block neck
-  link(rel='stylesheet', href='/views/about/index.min.css?#{cacheBreaker}')
+  link(rel='stylesheet', href='/views/edit/index.min.css?#{cacheBreaker}')
 
 block body
-  div.row
-    div.col-sm-6
-      div.page-header
-        h1 About Schwitr
-      div.media
-          i.fa.fa-pencil-square-o.fa-4x.pull-left
-          div.media-body
-            p The site is inspired by the Surrealist word games of the early 20th century, the most obvious being Exquisite Corpse.
-      div.media
-        a.pull-left(href='#')
-          img.media-object(src='/media/schwitters.png', style='width: 56px; height: 56px;', alt='Kurt Schwitters')
-        div.media-body
-          h4.media-heading Kurt Schwitters
-          p Kurt Schwitters (1887 - 1948) was involved in Dada, Constructivism, Surrealism, and probably a bunch more stuff.  He was chosen as the Dada artist most likely to have his named turned into a Web 2.0 app.
-      div.media
-          i.fa.fa-picture-o.fa-4x.pull-left
-          div.media-body
-            h4.media-heading Prior Artwork
-            p This project was of course inspired by previously existing art, including The Dada Engine and SCIGEN.
-      div.media
-          i.fa.fa-cogs.fa-4x.pull-left
-          div.media-body
-            h4.media-heading Colophon
-            p The basic site structure is Drywall.JS, with Boostrap, Font Awesome, and all the Node.JS technologies under the hood.
-
-    div.col-sm-6.special
-      div.page-header
-        h1 Man Minus One
-      p.lead Art is not defined as a business.
-      p This project is constructed by James Allenspach, aka Man Minus One. This project is distributed under a Creative Commons license.
-      p &nbsp;
-      i.fa.fa-creative-commons(style='color: #cccccc; font-size: 20em;')
+  div(id="editor-div" class="editorBodyClass")
+      div(id="codeDiv" class="codeClass")
+          div(id="codeHdr" class="divheader") Schwitr code
+      div(id="cssDiv"  class="cssClass")
+          div(id="cssHdr" class="divheader") CSS
+      div(id="outputDiv" class="outputClass")
+          div(id="outputHdr" class="divheader") Output
+              input(type="submit" id="updateButton" value=" Update ")

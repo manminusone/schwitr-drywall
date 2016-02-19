@@ -1,3 +1,7 @@
+/* globals parser,interpreter,CodeMirror */
+(function() {
+  'use strict';
+
 var codeEditor, cssEditor; 
 
 var default_css = "body { background: #fff; color: #000; font-family: Ubuntu Mono,Courier New,Courier,monospace } p.notify { color: #ccc; font-size: 36px; } ";
@@ -18,7 +22,7 @@ function resizeCM(paneName, paneElement, paneState, paneOptions, layoutName) {
 
 
 function layout1() {
-	if (current_layout != '') { initialCode = codeEditor.getValue(); initialCss = cssEditor.getValue(); current_layout.destroy(); current_layout = ''; initialTitle = $('#title').val(); initialDesc = $('#desc').val(); initialKeywords = $('#keywords').tagit('assignedTags').join(','); }
+	if (current_layout !== '') { initialCode = codeEditor.getValue(); initialCss = cssEditor.getValue(); current_layout.destroy(); current_layout = ''; initialTitle = $('#title').val(); initialDesc = $('#desc').val(); initialKeywords = $('#keywords').tagit('assignedTags').join(','); }
 	$('#editor-div').empty();
 	$('#editor-div').append(
 		'<div class="ui-layout-center cssClass" id="cssDiv"> <div id="cssHdr" class="ui-layout-north divheader"> CSS </div><div id="cssEditor" class="ui-layout-center"></div> </div>'+
@@ -53,7 +57,6 @@ function layout1() {
           closable: false,
           spacing_open: 0,
 	      			margin: 0, padding: 0,
-	      			spacing_open: 0,
               spacing_closed: 0,
 	      			size: 40
 	      		},
@@ -61,7 +64,7 @@ function layout1() {
 	      			margin: 0, padding: 0
 	      		}
 	      },
-				size: .33
+				size: 0.33
       },
       east: { /* OUTPUT */
       	margin: 0,
@@ -80,7 +83,7 @@ function layout1() {
       			margin: 0, padding: 0
       		}
       	},
-				size: .33
+				size: 0.33
       },
       west: { /* CODE */
       	margin: 0,
@@ -99,7 +102,7 @@ function layout1() {
       			margin: 0, padding: 0
       		}
       	},
-				size: .33
+				size: 0.33
       },
 
       onresize: resizeCM
@@ -108,7 +111,7 @@ function layout1() {
 }
 
 function layout2() {
-	if (current_layout != '') { initialCode = codeEditor.getValue(); initialCss = cssEditor.getValue(); current_layout.destroy(); current_layout = ''; initialTitle = $('#title').val(); initialDesc = $('#desc').val(); initialKeywords = $('#keywords').tagit('assignedTags').join(','); }
+	if (current_layout !== '') { initialCode = codeEditor.getValue(); initialCss = cssEditor.getValue(); current_layout.destroy(); current_layout = ''; initialTitle = $('#title').val(); initialDesc = $('#desc').val(); initialKeywords = $('#keywords').tagit('assignedTags').join(','); }
 	$('#editor-div').empty();
 	$('#editor-div').height( $(window).height() - 72 );
 	$('#editor-div').append('<div class="ui-layout-center cssClass" id="cssDiv"> <div id="cssHdr" class="ui-layout-north divheader"> CSS </div><div id="cssEditor" class="ui-layout-center"></div> </div> '+
@@ -151,7 +154,7 @@ function layout2() {
 	      			margin: 0, padding: 0
 	      		}
 	      },
-				size: .5
+				size: 0.5
       },
       south: { /* OUTPUT */
       	margin: 0,
@@ -170,7 +173,7 @@ function layout2() {
 	      			spacing_open: 0, spacing_closed: 0,
       			margin: 0, padding: 0
       		}
-      	}  ,size: .5
+      	}  ,size: 0.5
       },
       west: { /* CODE */
       	margin: 0,
@@ -190,7 +193,7 @@ function layout2() {
       			margin: 0, padding: 0
       		}
       	},
-				size: .5
+				size: 0.5
       },
 
       onresize: resizeCM
@@ -198,7 +201,7 @@ function layout2() {
 }
 
 function layout3() {
-	if (current_layout != '') { initialCode = codeEditor.getValue(); initialCss = cssEditor.getValue(); current_layout.destroy(); current_layout = ''; initialTitle = $('#title').val(); initialDesc = $('#desc').val(); initialKeywords = $('#keywords').tagit('assignedTags').join(','); }
+	if (current_layout !== '') { initialCode = codeEditor.getValue(); initialCss = cssEditor.getValue(); current_layout.destroy(); current_layout = ''; initialTitle = $('#title').val(); initialDesc = $('#desc').val(); initialKeywords = $('#keywords').tagit('assignedTags').join(','); }
 	$('#editor-div').empty();
 	$('#editor-div').height( $(window).height() - 72 );
 	$('#editor-div').append('<div class="ui-layout-center" style="padding: 0">' +
@@ -228,18 +231,18 @@ function layout3() {
                 
                 childOptions: {
                     center: {
-                        size: .5
+                        size: 0.5
                     },
                     south: {
-                        size: .5
+                        size: 0.5
                     }
                 }
             },
             west: {
-                size: .5
+                size: 0.5
             },
             south: {
-                size: .5
+                size: 0.5
             },
 
       onresize: resizeCM
@@ -253,8 +256,8 @@ function updateOutput(css, str) {
 
 	// remove @import directives from CSS, because those need to come first in stylesheet
 	css = ' ' + css + ' ';
-	var imports = '';
-	while (m = /([\s\S]+)(@import\s[^;]+;)([\s\S]+)/.exec(css)) {
+	var imports = '', m = '';
+	while ((m = /([\s\S]+)(@import\s[^;]+;)([\s\S]+)/.exec(css)) !== null) {
 		imports += m[2];
 		css = m[1] + m[3];
 	}
@@ -264,7 +267,7 @@ function updateOutput(css, str) {
 	'<style>' + imports + default_css + css + '</style>' + 
 	'</head>'+
 	'<body>'+
-	(str && str != '' ? str : default_body) +
+	(str && str !== '' ? str : default_body) +
 	'</body></html>';
     $('#outputIframe').attr('src','data:text/html,' + encodeURIComponent(htmldoc));
 }
@@ -280,15 +283,16 @@ function decodeHtml(str) {
 
 function setupViewPage() {
 	
-	if (initialCode != '') {
+	if (initialCode !== '') {
 		var rules = parser.parse(initialCode);
 		if (rules.error) {
 			alert(rules.error);
 		} else {
 			var containers = parser.cssRules(initialCss);
-			for (rname in containers) {
-				if (rules['rules'][rname])
-					rules['rules'][rname]['container'] = containers[rname];
+			for (var rname in containers) {
+				if (rules.rules[rname]) {
+					rules.rules[rname].container = containers[rname];
+				}
 			}
 		
 			var i = interpreter.interpreter();
@@ -309,7 +313,7 @@ function setupViewPage() {
 				}
 			}
 		}
-	} else if (initialOutput != '') {
+	} else if (initialOutput !== '') {
 		$('body').html(
 			'<style>' + default_css + initialCss + '</style>' + 
 			initialOutput
@@ -329,21 +333,26 @@ function setupCodeMirror() {
 	$('#title').val(initialTitle);
 	$('#desc').val(initialDesc);
 	var tmpArray = initialKeywords.split(',');
-	for (var i in tmpArray)
-		$('#keywords').tagit('createTag',tmpArray[i]);
+	for (var i in tmpArray) {
+		if (i !== '') {
+			$('#keywords').tagit('createTag',tmpArray[i]);
+		}
+	}
 
 	codeEditor.on('change', function() { $(window).bind('beforeunload',confirmLeave); });
 	cssEditor.on('change', function() { $(window).bind('beforeunload',confirmLeave); });
 
     // If the CM doesn't take up the whole div, clicking on the non-editor portion of the div will focus to the appropriate editor
 	$('#codeDiv').click(function() { 
-		if (! codeEditor.hasFocus())
+		if (! codeEditor.hasFocus()) {
 			codeEditor.focus();
+		}
 	});
 
 	$('#cssDiv').click(function() {
-		if (! cssEditor.hasFocus())
+		if (! cssEditor.hasFocus()) {
 			cssEditor.focus();
+		}
 	});
 
 	$('#outputDiv').html( '<iframe id="outputIframe" type="content" frameborder="0" width="100%"></iframe>');
@@ -351,14 +360,16 @@ function setupCodeMirror() {
 
 	$('#updateButton').button().click(function(e) { 
 		var rules = parser.parse(codeEditor.getValue());
-		if (rules.error)
+		if (rules.error) {
 			alert(rules.error);
- 		else {
+		} else {
  			console.log(rules);
 			var containers = parser.cssRules(cssEditor.getValue());
-			for (rname in containers)
-				if (rules['rules'][rname])
-					rules['rules'][rname]['container'] = containers[rname];
+			for (var rname in containers) {
+				if (rules.rules[rname]) {
+					rules.rules[rname].container = containers[rname];
+				}
+			}
 	
 			var i = interpreter.interpreter();
 			var stat = i.init(rules);
@@ -379,9 +390,9 @@ function setupCodeMirror() {
   	});
 	$('#saveButton').button().click(function(e) { 
 		var doc_id, m = window.document.URL.match(/edit\/(\w+)/);
-		if (m) doc_id = m[1];
+		if (m)  { doc_id = m[1]; }
 		var parent_id, m2 = window.document.URL.match(/clone\/(\w+)/);
-		if (m2) parent_id = m2[1];
+		if (m2) { parent_id = m2[1]; }
 
 		$.post('/doc/save', { 
 			grammar: codeEditor.getValue(), 
@@ -393,13 +404,14 @@ function setupCodeMirror() {
 			parentHash: parent_id
 		}, function(data) { 
 			$(window).unbind('beforeunload',confirmLeave);
-			if (data['hash'] != doc_id) {
+			if (data.hash !== doc_id) {
 				// update the client's URL with the new key
 				if (window.history.pushState) {
-					window.history.pushState('','Title',window.location.origin + '/doc/edit/' + data['hash']);
+					window.history.pushState('','Title',window.location.origin + '/doc/edit/' + data.hash);
 					$('#doc-format-div').html('<a href="#">HTML</a> | <a href="#">plaintext</a> | <a href="#">xml</a> | <a href="#">javascript</a>');
-				} else
-					window.location = window.location.origin + '/doc/edit/' + data['hash'];
+				} else {
+					window.location = window.location.origin + '/doc/edit/' + data.hash;
+				}
 			}
 		});
 	});
@@ -408,9 +420,9 @@ function setupCodeMirror() {
 function setupMetadataForm() {
 	$('#metadata-form').dialog( { autoOpen: false } ); 
 	$('#infoButton').button().click(function(e) {
-		if (infoWindowOpen) 
+		if (infoWindowOpen)  {
 			$('#metadata-form').dialog('close');
-		else {
+		} else {
 			$('#metadata-form').dialog({ position: { my: 'left top', at: 'left bottom', of: $('#infoButton') } });
 			$('#metadata-form').dialog('open');
 		}
@@ -460,13 +472,16 @@ function setupEditPage() {
 
 		var do_it = false;
 		if (window.document.URL.match(/edit\/(\w+)/)) {  // editing an existing document
-			if (confirm('Continue without saving current document?'))
+			if (confirm('Continue without saving current document?')) {
 				do_it = true;
+			}
 
 		} else {  // no saved doc, so check with the user to see if they want to save
-			if (codeEditor.getValue() != '' || cssEditor.getValue() != '')
-				if (confirm('Continue without saving current document?'))
+			if (codeEditor.getValue() !== '' || cssEditor.getValue() !== '') {
+				if (confirm('Continue without saving current document?')) {
 					do_it = true;
+				}
+			}
 		}
 
 		if (do_it) {
@@ -475,8 +490,9 @@ function setupEditPage() {
 					cssEditor.setValue('');
 					updateOutput('','');
 					window.history.pushState('','Title',window.location.origin + '/doc/edit');
-				} else
+				} else {
 					window.location = window.location.origin + '/doc/edit';
+				}
 
 		}
 	});
@@ -489,8 +505,11 @@ function populate(hash) {
 		// metadata form
 		$('#title').val(data.title);
 		$('#desc').val(data.desc);
-		for (var i in data.keywords)
-			$('#keywords').tagit('createTag',data.keywords[i]);
+		for (var i in data.keywords) {
+			if (i !== '') {
+				$('#keywords').tagit('createTag',data.keywords[i]);
+			}
+		}
 
 	});
 }
@@ -520,3 +539,5 @@ $(document).ready(function() {
   	}
   });
 });
+
+}());
