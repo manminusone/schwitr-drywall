@@ -44,7 +44,7 @@ module.exports = function(grunt) {
           },
           {
             expand: true, cwd: 'node_modules/codemirror/',
-            src: ['lib/**' ,'mode/css/**'], dest: 'public/vendor/codemirror'
+            src: ['lib/**' ,'mode/css/**', 'mide/meta/**'], dest: 'public/vendor/codemirror'
           },
 	  {
 	    expand: true, cwd: 'node_modules/canto34/src/',

@@ -1,4 +1,5 @@
 /* globals parser,interpreter,CodeMirror */
+/* jshint -W098 */
 (function() {
   'use strict';
 

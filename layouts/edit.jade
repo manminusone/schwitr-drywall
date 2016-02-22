@@ -6,6 +6,7 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='/layouts/core.min.css?#{cacheBreaker}')
     
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js')
 
     // CodeMirror content
     script(src='/vendor/codemirror/lib/codemirror.js')
@@ -16,9 +17,6 @@ html
 
     script(src='/vendor/jquery/jquery.js')
 
-    // canto34 is the parser lib
-    script(src='http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js')
-    
     script(src="/views/edit/edit.min.js")
     script(src="/views/edit/interpreter.min.js")
     script(src="/views/edit/parse.min.js")

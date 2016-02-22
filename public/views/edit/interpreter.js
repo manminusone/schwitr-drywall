@@ -1,4 +1,5 @@
 /* globals exports */
+/* jslint -W083 */
 (function(exports) {
 
 'use strict';
