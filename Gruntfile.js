@@ -44,12 +44,19 @@ module.exports = function(grunt) {
           },
           {
             expand: true, cwd: 'node_modules/codemirror/',
-            src: ['lib/**' ,'mode/css/**', 'mide/meta/**'], dest: 'public/vendor/codemirror'
+            src: ['lib/**' ,'mode/css/**', 'mode/meta/**'], dest: 'public/vendor/codemirror'
           },
-	  {
-	    expand: true, cwd: 'node_modules/canto34/src/',
-	    src: [ 'canto34.js' ], dest: 'public/vendor/canto34/'
-	  }
+          {
+            expand: true, cwd: 'node_modules/canto34/src/',
+            src: [ 'canto34.js' ], dest: 'public/vendor/canto34/'
+          },
+          {
+            expand: true, cwd: 'node_modules/jquery-ui/',
+            src: [ 'jquery-ui.js','themes/base/jquery-ui.css' ], dest: 'public/vendor/jquery-ui/'
+          },
+          {
+            expand: true, cwd: 'node_modules/requirejs/', src: [ 'require.js' ], dest: 'public/vendor/requirejs/'
+          }
         ]
       }
     },

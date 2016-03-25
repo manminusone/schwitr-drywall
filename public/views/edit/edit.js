@@ -23,7 +23,8 @@ function resizeCM(paneName, paneElement, paneState, paneOptions, layoutName) {
 
 
 function layout1() {
-	if (current_layout !== '') { initialCode = codeEditor.getValue(); initialCss = cssEditor.getValue(); current_layout.destroy(); current_layout = ''; initialTitle = $('#title').val(); initialDesc = $('#desc').val(); initialKeywords = $('#keywords').tagit('assignedTags').join(','); }
+	// if (current_layout !== '') { initialCode = codeEditor.getValue(); initialCss = cssEditor.getValue(); current_layout.destroy(); current_layout = ''; initialTitle = $('#title').val(); initialDesc = $('#desc').val(); initialKeywords = $('#keywords').tagit('assignedTags').join(','); }
+	if (current_layout !== '') { initialCode = codeEditor.getValue(); initialCss = cssEditor.getValue(); current_layout.destroy(); current_layout = ''; initialTitle = $('#title').val(); initialDesc = $('#desc').val();  }
 	$('#editor-div').empty();
 	$('#editor-div').append(
 		'<div class="ui-layout-center cssClass" id="cssDiv"> <div id="cssHdr" class="ui-layout-north divheader"> CSS </div><div id="cssEditor" class="ui-layout-center"></div> </div>'+
@@ -121,7 +122,7 @@ function layout2() {
 		'<div class="ui-layout-south outputClass" id="outputDiv0"> <div id="outputHdr" class="ui-layout-north divheader"> Output <input type="submit" id="updateButton" value=" Update " /> </div> <div id="outputDiv" class="ui-layout-center"></div> </div>' +
 		metadata_form
 	);
-    $('#keywords').tagit();
+    // $('#keywords').tagit();
 		
   current_layout = $('#editor-div').layout({
 

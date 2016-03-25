@@ -35,7 +35,10 @@
     "underscore": "^1.x.x",
     "gravatar": "*",
     "codemirror": "*",
-    "canto34": "*"
+    "canto34": "*",
+    "jquery-layout": "*",
+    "jquery-ui": "*",
+    "requirejs": "*"
   },
   "devDependencies": {
     "bootstrap": "^3.x.x",

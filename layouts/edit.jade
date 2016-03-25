@@ -6,21 +6,24 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='/layouts/core.min.css?#{cacheBreaker}')
     
-    script(src='http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js')
+    script(data-main='/reqinit' src='/vendor/requirejs/require.js')
+    // script(src='/vendor/jquery/jquery.js')
+
+    // link(rel="stylesheet" href="/vendor/jquery-ui/themes/base/jquery-ui.css")
+    // script(src="/vendor/jquery-ui/jquery-ui.js")
+    // script(src='/vendor/jquery-layout/jquery.layout.js')
 
     // CodeMirror content
-    script(src='/vendor/codemirror/lib/codemirror.js')
-    link(rel='stylesheet', href='/vendor/codemirror/lib/codemirror.css')
-    // language libs
-    script(src='/vendor/codemirror/mode/css/css.js')
-    script(src='/views/edit/schwitr.min.js')
+    // script(src='/vendor/codemirror/lib/codemirror.js')
+    // link(rel='stylesheet', href='/vendor/codemirror/lib/codemirror.css')
+    /// language libs
+    // script(src='/vendor/codemirror/mode/css/css.js')
+    // script(src='/views/edit/schwitr.js')
 
-    script(src='/vendor/jquery/jquery.js')
-
-    script(src="/views/edit/edit.min.js")
-    script(src="/views/edit/interpreter.min.js")
-    script(src="/views/edit/parse.min.js")
-    link(rel='stylesheet', href='/views/edit/edit.css')
+    // script(src="/views/edit/edit.js")
+    // script(src="/views/edit/interpreter.js")
+    // script(src="/views/edit/parse.js")
+    // link(rel='stylesheet', href='/views/edit/edit.css')
 
     block neck
   body
@@ -71,7 +74,7 @@ html
       img(src='/media/ajax-pulse.gif', alt='Loading')
 
     //if lte IE 9
-      script(src='/layouts/ie-sucks.min.js?#{cacheBreaker}')
-    script(src='/layouts/core.min.js?#{cacheBreaker}')
+    //  script(src='/layouts/ie-sucks.min.js?#{cacheBreaker}')
+    // script(src='/layouts/core.min.js?#{cacheBreaker}')
 
     block feet

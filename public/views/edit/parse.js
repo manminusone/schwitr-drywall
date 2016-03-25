@@ -1,4 +1,4 @@
-/* globals require,exports */
+/* globals requirejs,exports */
 (function(exports) {
 
     'use strict';
